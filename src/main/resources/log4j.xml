@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="false">
+
+	<!-- ================================= -->
+	<!-- persist messages in a local file -->
+	<!-- ================================= -->
+
+	<!-- Simple file appender -->
+	<appender name="FILE" class="org.apache.log4j.RollingFileAppender">
+		<errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+		<param name="File" value="C:/itreddys//logs/evillage.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="100MB" />
+		<param name="MaxBackupIndex" value="5" />
+		<param name="Threshold" value="DEBUG" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- The default pattern: Date Priority [Category] Thread Message -->
+			<param name="ConversionPattern" value="[%d{ISO8601}] [%t] [%-5p] %c: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ============================== -->
+	<!-- Append messages to the console -->
+	<!-- ============================== -->
+
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<errorHandler class="org.apache.log4j.helpers.OnlyOnceErrorHandler" />
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="INFO" />
+
+		<layout class="org.apache.log4j.PatternLayout">
+			<!-- The default pattern: Date Priority [Category] Message -->
+			<param name="ConversionPattern" value="[%d{ISO8601}] [%t] [%-5p] %c: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- ============================== -->
+	<!-- Use an async appender for performance and to prevent the console from 
+		blocking the server -->
+	<!-- ============================== -->
+	<appender name="ASYNC" class="org.apache.log4j.AsyncAppender">
+		<param name="BufferSize" value="100000" />
+		<param name="Blocking" value="false" />
+		<appender-ref ref="FILE" />
+		<appender-ref ref="CONSOLE" />
+	</appender>
+
+	<!-- ================ -->
+	<!-- Limit categories -->
+	<!-- ================ -->
+
+	<!-- Limit the org.apache category to INFO for commons and Tomcat -->
+	<category name="org.apache">
+		<priority value="INFO" />
+	</category>
+
+
+
+	<category name="org.springframework">
+		<priority value="INFO" />
+	</category>
+
+
+	<category name="com.sun">
+		<priority value="WARN" />
+	</category>
+
+	<category name="com.itreddys">
+		<priority value="DEBUG" />
+	</category>
+	<root>
+		<appender-ref ref="ASYNC" />
+	</root>
+
+</log4j:configuration>

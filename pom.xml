@@ -1,9 +1,97 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.itreddys.evillage</groupId>
-  <artifactId>eVillage</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>eVillage</name>
-  <description>eVillage is the project for to serve Village people over the web</description>
-  <packaging>war</packaging>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.itreddys.evillage</groupId>
+	<artifactId>eVillage</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>eVillage</name>
+	<description>eVillage is the project for to serve Village people over the web</description>
+	<packaging>war</packaging>
+
+	<properties>
+		<jackson.mapper.version>1.5.6</jackson.mapper.version>
+		<context.path>itreddys</context.path>
+		<maven.javadoc.reporting.version>2.7</maven.javadoc.reporting.version>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<commons.logging.version>1.1.1</commons.logging.version>
+		<releaseCandidate>1</releaseCandidate>
+		<spring.version>4.0.6.RELEASE</spring.version>
+		<log4j.version>1.2.16</log4j.version>
+		<spring.security.version>3.2.4.RELEASE</spring.security.version>
+		<jackson.mapper.version>1.5.6</jackson.mapper.version>
+	</properties>
+
+	<dependencies>
+		<!-- ********* START DATABASE RELATED DEPENDENCIES ********* -->
+		<!-- Mongo DB framwork -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>1.5.1.RELEASE</version>
+		</dependency>
+		<!-- ********* END DATABASE RELATED DEPENDENCIES ********* -->
+
+		<!-- ********* START SPRING RELATED DEPENDENCIES ********* -->
+		<!-- Spring Core framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!-- Spring Web Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Spring Security Core Framework -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- Spring Security Config Framework -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- Spring Security web Framework -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring.security.version}</version>
+		</dependency>
+		<!-- Spring MVC Framework -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+
+		<!-- ********* END SPRING RELATED DEPENDENCIES ********* -->
+
+		<!-- Servlet Framework -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<!-- Log4j Framework -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+		<!--  Need to remove the dependency later and TODO check the license agreement -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.mapper.version}</version>
+		</dependency>
+	</dependencies>
 </project>

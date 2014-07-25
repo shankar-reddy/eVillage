@@ -3,7 +3,7 @@
  * Jul 20, 2014  9:37:13 PM
  * 
  */
-package com.itreddys.evillage.bd.bean;
+package com.itreddys.evillage.bean;
 
 import java.util.Date;
 
@@ -11,6 +11,7 @@ import java.util.Date;
  * Account Information
  */
 public class Account {
+	
 	private String firstName = new String();
 	private String middleName = new String();
 	private String lastName = new String();
@@ -20,6 +21,9 @@ public class Account {
 	
 	private boolean receiveMail = false;
 	private boolean receiveSMS  = false;
+	
+	private String userName = new String();
+	private String password = new String();
 	
 	//TODO Add more feilds about Account related
 	
@@ -118,6 +122,30 @@ public class Account {
 	 */
 	public void setReceiveSMS(boolean receiveSMS) {
 		this.receiveSMS = receiveSMS;
+	}
+	/**
+	 * @return the userName
+	 */
+	public String getUserName() {
+		return userName;
+	}
+	/**
+	 * @param userName the userName to set
+	 */
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	/**
+	 * @return the password
+	 */
+	public String getPassword() {
+		return password;
+	}
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	
 	
