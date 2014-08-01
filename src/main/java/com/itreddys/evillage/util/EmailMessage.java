@@ -5,49 +5,59 @@
  */
 package com.itreddys.evillage.util;
 
+
 /**
  * @author stelukut
- *
+ * 
  */
 public class EmailMessage {
-	String sender = new String();
 	String receiver = new String();
-	String message  = new String();
-	/**
-	 * @return the message
-	 */
-	public String getMessage() {
-		return message;
-	}
-	/**
-	 * @param message the message to set
-	 */
-	public void setMessage(String message) {
-		this.message = message;
-	}
-	/**
-	 * @return the sender
-	 */
-	public String getSender() {
-		return sender;
-	}
-	/**
-	 * @param sender the sender to set
-	 */
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
+	String subject = new String();
+	String message = new String();
+
 	/**
 	 * @return the receiver
 	 */
 	public String getReceiver() {
 		return receiver;
 	}
+
 	/**
-	 * @param receiver the receiver to set
+	 * @param receiver
+	 *            the receiver to set
 	 */
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
+	}
+
+	/**
+	 * @return the subject
+	 */
+	public String getSubject() {
+		return subject;
+	}
+
+	/**
+	 * @param subject
+	 *            the subject to set
+	 */
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	/**
+	 * @return the message
+	 */
+	public String getMessage() {
+		return message;
+	}
+
+	/**
+	 * @param message
+	 *            the message to set
+	 */
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

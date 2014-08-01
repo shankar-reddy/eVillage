@@ -20,6 +20,8 @@
 		<log4j.version>1.2.16</log4j.version>
 		<spring.security.version>3.2.4.RELEASE</spring.security.version>
 		<jackson.mapper.version>1.5.6</jackson.mapper.version>
+		<spring.mail.version>2.0.8</spring.mail.version>
+		<javax.mail.version>1.4</javax.mail.version>
 	</properties>
 
 	<dependencies>
@@ -70,8 +72,17 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-
-
+		<!-- Spring Mailer -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-support</artifactId>
+			<version>${spring.mail.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${javax.mail.version}</version>
+		</dependency>
 		<!-- ********* END SPRING RELATED DEPENDENCIES ********* -->
 
 		<!-- Servlet Framework -->

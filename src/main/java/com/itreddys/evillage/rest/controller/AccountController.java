@@ -11,6 +11,10 @@ import org.springframework.web.servlet.View;
 
 import com.itreddys.evillage.bean.Account;
 import com.itreddys.evillage.service.AccountService;
+import com.itreddys.evillage.util.EmailAdaptor;
+import com.itreddys.evillage.util.EmailMessage;
+import com.itreddys.evillage.util.SMSAdaptor;
+import com.itreddys.evillage.util.SMSMessage;
 
 
 /**
@@ -22,6 +26,11 @@ public class AccountController   extends BaseController {
 
 	@Autowired
 	private AccountService accountService;
+	
+	@Autowired
+	private EmailAdaptor emailAdaptor;
+	@Autowired
+	private SMSAdaptor smsAdaptor;
 
 	@Autowired
 	private View jsonView_i;
@@ -37,6 +46,25 @@ public class AccountController   extends BaseController {
 		List<Account> accounts = null;
 		try {
 			accounts = accountService.findAll();
+			for(Account account : accounts){
+				if( account.isReceiveMail()){
+					EmailMessage emailMessage = new EmailMessage();
+					emailMessage.setReceiver(account.getEmailId());
+					emailMessage.setSubject("eVillage Notification");
+					emailMessage.setMessage("Dear " + account.getUserName() +", \n Welcome To eVillage");
+					emailAdaptor.sendMail(emailMessage);
+				}
+				logger_c.debug("****" + account.isReceiveSMS());
+				if( account.isReceiveSMS()){
+					logger_c.debug("Sending SMS");
+					SMSMessage smsMessage = new SMSMessage();
+					smsMessage.setReceiver(account.getPhNo());
+					smsMessage.setMessage("Dear " + account.getUserName() +", \n Welcome To eVillage");
+					smsAdaptor.sendSMS(smsMessage);
+				}
+			
+			}
+			
 		} catch (Exception e) {
 			String sMessage = "Error getting all Accounts. [%1$s]";
 			return createErrorResponse(String.format(sMessage, e.toString()));

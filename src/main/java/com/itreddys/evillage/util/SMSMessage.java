@@ -10,7 +10,7 @@ package com.itreddys.evillage.util;
  */
 public class SMSMessage {
 	String message = new String();
-	//TODO Add parameters required to create a new string.
+	String receiver = new String();
 
 	public String getMessage() {
 		return message;
@@ -18,6 +18,21 @@ public class SMSMessage {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	/**
+	 * @return the receiver
+	 */
+	public String getReceiver() {
+		return receiver;
+	}
+
+	/**
+	 * @param receiver
+	 *            the receiver to set
+	 */
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
 	}
 
 }

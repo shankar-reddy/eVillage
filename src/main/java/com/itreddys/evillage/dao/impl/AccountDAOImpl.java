@@ -39,13 +39,13 @@ public class AccountDAOImpl implements AccountDAO {
 		 List<Account> accounts1 = new ArrayList<Account>();
 		 Account account = new Account();
 		 account.setDob(new Date());
-		 account.setEmailId("sankara.telukutla@gmail.com");
+		 account.setEmailId("sankara.telukutla@gmail.com,indu.bharu@gmail.com");
 		 account.setFirstName("Sankara");
 		 account.setLastName("Telukutla");
 		 account.setMiddleName("Reddy");
 		 account.setPassword("**********");
 		 account.setPhNo("+1 510 936 0999");
-		 account.setReceiveMail(false);
+		 account.setReceiveMail(true);
 		 account.setReceiveSMS(true);
 	     account.setUserName("sankara.telukutla");
 		 
