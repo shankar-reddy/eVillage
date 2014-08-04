@@ -39,7 +39,7 @@ public class AccountDAOImpl implements AccountDAO {
 		 List<Account> accounts1 = new ArrayList<Account>();
 		 Account account = new Account();
 		 account.setDob(new Date());
-		 account.setEmailId("sankara.telukutla@gmail.com,indu.bharu@gmail.com");
+		 account.setEmailId("sankara.telukutla@gmail.com");
 		 account.setFirstName("Sankara");
 		 account.setLastName("Telukutla");
 		 account.setMiddleName("Reddy");
@@ -50,6 +50,20 @@ public class AccountDAOImpl implements AccountDAO {
 	     account.setUserName("sankara.telukutla");
 		 
 		 accounts.add(account);
+		 
+		 Account account2 = new Account();
+		 account2.setDob(new Date());
+		 account2.setEmailId("indu.bharu@gmail.com");
+		 account2.setFirstName("Bharathi");
+		 account2.setLastName("Nalla");
+		 account2.setMiddleName("X");
+		 account2.setPassword("**********");
+		 account2.setPhNo("8686356437");
+		 account2.setReceiveMail(true);
+		 account2.setReceiveSMS(true);
+	     account2.setUserName("bharathi.nalla");
+	     accounts.add(account2);
+	     
 		 return accounts;
 	}
 
