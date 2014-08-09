@@ -25,5 +25,14 @@ public class AccountService {
      */
 	public List<Account> findAll() throws eVillageException {
 		return dao.findAll();
+
+	}
+	
+	/**
+	 * Create the User Account 
+	 * @throws eVillageException
+	 */
+	public Account createAccount(Account account) throws eVillageException {
+		return dao.createAccount(account);
 	}
 }

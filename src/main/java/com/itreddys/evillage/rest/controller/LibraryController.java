@@ -7,15 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import com.itreddys.evillage.bean.LibraryDetails;
+import com.itreddys.evillage.bean.LibraryDetails;
 import com.itreddys.evillage.service.LibraryService;
 
 /**
- * @author Bharathi Nalla 
- * LibrarysController class will expose a series of
+ * @author Bharathi Nalla LibrarysController class will expose a series of
  *         RESTful end points
  */
 @Controller
@@ -46,6 +47,41 @@ public class LibraryController extends BaseController {
 			return createErrorResponse(String.format(sMessage, e.toString()));
 		}
 		logger_c.info("Returning Library details: " + library.toString());
+		return new ModelAndView(jsonView_i, DATA_FIELD, library);
+	}
+
+	/**
+	 * Create Library
+	 * 
+	 * @return LibraryDetails
+	 */
+	@RequestMapping(value = "/rest/library", method = RequestMethod.POST)
+	public ModelAndView createLibrary(
+			@RequestParam("libraryName") String libraryName,
+			@RequestParam("address") String address,
+			@RequestParam("contactNo") String contactNo,
+			@RequestParam("webSite") String webSite,
+			@RequestParam("fax") String fax, @RequestParam("eMail") String eMail) {
+
+		LibraryDetails library = new LibraryDetails();
+		try {
+			library.setLibraryName(libraryName);
+			library.setAddress(address);
+			library.setContactNo(contactNo);
+			library.setWebSite(webSite);
+			library.setFax(fax);
+			library.seteMail(eMail);
+
+			logger_c.info("Creating LibraryDetails for the Library: "
+					+ libraryName);
+
+			library = libraryService.createLibrary(library);
+
+		} catch (Exception e) {
+			String sMessage = "Error Creating record for Library. [%1$s]";
+			return createErrorResponse(String.format(sMessage, e.toString()));
+		}
+		logger_c.info("Returning Library: " + library.toString());
 		return new ModelAndView(jsonView_i, DATA_FIELD, library);
 	}
 }

@@ -24,6 +24,7 @@ public class SMSAdaptorImpl implements SMSAdaptor {
 	private static final Logger logger_c = Logger.getLogger(EmailAdaptorImpl.class);
 	SMSProperties smsProps;
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public String sendSMS(SMSMessage smsMessage) throws eVillageException {
 		logger_c.debug("Sending SMS");

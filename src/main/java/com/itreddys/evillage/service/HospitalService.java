@@ -28,4 +28,16 @@ public class HospitalService {
 	public List<HospitalDetails> findAll() throws eVillageException {
 		return dao.findAll();
 	}
+
+	/**
+	 * 
+	 * Create Hospital
+	 * 
+	 * @throws eVillageException
+	 * 
+	 */
+	public HospitalDetails createHospital(HospitalDetails hospitals)
+			throws eVillageException {
+		return dao.createHospital(hospitals);
+	}
 }

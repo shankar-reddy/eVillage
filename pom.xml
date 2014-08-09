@@ -8,6 +8,26 @@
 	<description>eVillage is the project for to serve Village people over the web</description>
 	<packaging>war</packaging>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webXml>WebContent\WEB-INF\web.xml</webXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 	<properties>
 		<jackson.mapper.version>1.5.6</jackson.mapper.version>
 		<context.path>itreddys</context.path>
@@ -97,8 +117,8 @@
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
-		
-		<!--  Need to remove the dependency later and TODO check the license agreement -->
+
+		<!-- Need to remove the dependency later and TODO check the license agreement -->
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>

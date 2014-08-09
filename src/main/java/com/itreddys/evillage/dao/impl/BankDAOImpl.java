@@ -8,17 +8,33 @@ package com.itreddys.evillage.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itreddys.evillage.bean.BankDetails;
 import com.itreddys.evillage.dao.BankDAO;
 import com.itreddys.evillage.exception.eVillageException;
+import com.itreddys.evillage.util.DBConnectionFactory;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 /**
  * 
  */
 @Service
 public class BankDAOImpl implements BankDAO {
+	@Autowired
+	DBConnectionFactory dbConnection;
+	DB db;
+	private static final Logger logger_c = Logger.getLogger(BankDAOImpl.class);
+
+	public BankDAOImpl() throws eVillageException {
+		db = dbConnection.getConnection();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -26,10 +42,26 @@ public class BankDAOImpl implements BankDAO {
 	 * @see com.itreddys.evillage.dao.BankDAO#findAll()
 	 */
 	public List<BankDetails> findAll() throws eVillageException {
-		List<BankDetails> bankDetails = new ArrayList<BankDetails>();
+		List<BankDetails> banksList = new ArrayList<BankDetails>();
+		DBCollection banks = db.getCollection("banks");
+		DBCursor bankDetails = banks.find();
+
+		while (bankDetails.hasNext()) {
+			DBObject bankObject = bankDetails.next();
+			BankDetails bank = new BankDetails();
+			bank.setBankName(String.valueOf(bankObject.get("bankName")));
+			bank.setAddress(String.valueOf(bankObject.get("address")));
+			bank.setContactNo(String.valueOf(bankObject.get("contactNo")));
+			bank.setWebSite(String.valueOf(bankObject.get("webSite")));
+			bank.setFax(String.valueOf(bankObject.get("fax")));
+			bank.seteMail(String.valueOf(bankObject.get("eMail")));
+			banksList.add(bank);
+
+		}
+
 		// Load Temp data
-		bankDetails = loadTempBankData(bankDetails);
-		return bankDetails;
+		// bankDetails = loadTempBankData(bankDetails);
+		return banksList;
 	}
 
 	/**
@@ -61,4 +93,33 @@ public class BankDAOImpl implements BankDAO {
 		return bankDetails;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.itreddys.evillage.dao.BankDAO#createBank(com.itreddys.evillage
+	 * .bd.bean.BankDetails)
+	 */
+	public BankDetails createBank(BankDetails bank) throws eVillageException {
+		DBCollection banks = db.getCollection("banks");
+		BasicDBObject bankDetails = new BasicDBObject();
+
+		bankDetails.put("bankName", bank.getBankName());
+		bankDetails.put("address", bank.getAddress());
+		bankDetails.put("contactNo", bank.getContactNo());
+		bankDetails.put("webSite", bank.getWebSite());
+		bankDetails.put("fax", bank.getFax());
+		bankDetails.put("eMail", bank.geteMail());
+		banks.insert(bankDetails);
+
+		/**** Find and display ****/
+		BasicDBObject findBank = new BasicDBObject();
+		findBank.put("bankName", bank.getBankName());
+
+		DBCursor cursor = banks.find(findBank);
+
+		while (cursor.hasNext()) {
+			logger_c.info("Created Bank Details for the Bank: " + cursor.next());
+		}
+		return bank;
+	}
 }

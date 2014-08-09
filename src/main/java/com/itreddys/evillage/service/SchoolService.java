@@ -28,4 +28,16 @@ public class SchoolService {
 	public List<SchoolDetails> findAll() throws eVillageException {
 		return dao.findAll();
 	}
+
+	/**
+	 * 
+	 * Create Schools
+	 * 
+	 * @throws eVillageException
+	 * 
+	 */
+	public SchoolDetails createSchool(SchoolDetails school)
+			throws eVillageException {
+		return dao.createSchool(school);
+	}
 }

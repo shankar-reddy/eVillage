@@ -28,4 +28,16 @@ public class EventService {
 	public List<EventDetails> findAll() throws eVillageException {
 		return dao.findAll();
 	}
+
+	/**
+	 * 
+	 * Create Event
+	 * 
+	 * @throws eVillageException
+	 * 
+	 */
+	public EventDetails createEvent(EventDetails event)
+			throws eVillageException {
+		return dao.createEvent(event);
+	}
 }

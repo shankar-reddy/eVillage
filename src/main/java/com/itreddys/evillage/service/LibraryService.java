@@ -28,4 +28,16 @@ public class LibraryService {
 	public List<LibraryDetails> findAll() throws eVillageException {
 		return dao.findAll();
 	}
+
+	/**
+	 * 
+	 * Create Library
+	 * 
+	 * @throws eVillageException
+	 * 
+	 */
+	public LibraryDetails createLibrary(LibraryDetails library)
+			throws eVillageException {
+		return dao.createLibrary(library);
+	}
 }

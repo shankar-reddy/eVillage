@@ -8,17 +8,34 @@ package com.itreddys.evillage.dao.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itreddys.evillage.bean.SchoolDetails;
 import com.itreddys.evillage.dao.SchoolDAO;
 import com.itreddys.evillage.exception.eVillageException;
+import com.itreddys.evillage.util.DBConnectionFactory;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
 
 /**
  * 
  */
 @Service
 public class SchoolDAOImpl implements SchoolDAO {
+	@Autowired
+	DBConnectionFactory dbConnection;
+	DB db;
+	private static final Logger logger_c = Logger
+			.getLogger(AccountDAOImpl.class);
+
+	public SchoolDAOImpl() throws eVillageException {
+		db = dbConnection.getConnection();
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -26,10 +43,26 @@ public class SchoolDAOImpl implements SchoolDAO {
 	 * @see com.itreddys.evillage.dao.SchoolDAO#findAll()
 	 */
 	public List<SchoolDetails> findAll() throws eVillageException {
-		List<SchoolDetails> schoolDetails = new ArrayList<SchoolDetails>();
+		List<SchoolDetails> schoolsList = new ArrayList<SchoolDetails>();
+		DBCollection schools = db.getCollection("schools");
+		DBCursor schoolDetails = schools.find();
+
+		while (schoolDetails.hasNext()) {
+			DBObject schoolObject = schoolDetails.next();
+			SchoolDetails school = new SchoolDetails();
+			school.setSchoolName(String.valueOf(schoolObject.get("schoolName")));
+			school.setAddress(String.valueOf(schoolObject.get("address")));
+			school.setContactNo(String.valueOf(schoolObject.get("contactNo")));
+			school.setWebSite(String.valueOf(schoolObject.get("webSite")));
+			school.setFax(String.valueOf(schoolObject.get("fax")));
+			school.seteMail(String.valueOf(schoolObject.get("eMail")));
+			schoolsList.add(school);
+
+		}
+
 		// Load Temp data
-		schoolDetails = loadTempSchoolData(schoolDetails);
-		return schoolDetails;
+		// schoolsList = loadTempSchoolData(schoolsList);
+		return schoolsList;
 	}
 
 	/**
@@ -60,6 +93,39 @@ public class SchoolDAOImpl implements SchoolDAO {
 		schoolDetails.add(school2);
 
 		return schoolDetails;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.itreddys.evillage.dao.SchoolDAO#createSchool(com.itreddys.evillage
+	 * .bd.bean.SchoolDetails)
+	 */
+	public SchoolDetails createSchool(SchoolDetails school)
+			throws eVillageException {
+		DBCollection schools = db.getCollection("schools");
+		BasicDBObject schoolDetailsObject = new BasicDBObject();
+
+		schoolDetailsObject.put("schoolName", school.getSchoolName());
+		schoolDetailsObject.put("address", school.getAddress());
+		schoolDetailsObject.put("contactNo", school.getContactNo());
+		schoolDetailsObject.put("webSite", school.getWebSite());
+		schoolDetailsObject.put("fax", school.getFax());
+		schoolDetailsObject.put("eMail", school.geteMail());
+		schools.insert(schoolDetailsObject);
+
+		/**** Find and display ****/
+		BasicDBObject findSchool = new BasicDBObject();
+		findSchool.put("schoolName", school.getSchoolName());
+
+		DBCursor cursor = schools.find(findSchool);
+
+		while (cursor.hasNext()) {
+			logger_c.info("Created School Details for the School: "
+					+ cursor.next());
+		}
+		return school;
 	}
 
 }

@@ -28,4 +28,15 @@ public class BankService {
 	public List<BankDetails> findAll() throws eVillageException {
 		return dao.findAll();
 	}
+
+	/**
+	 * 
+	 * Create New Bank Record
+	 * 
+	 * @throws eVillageException
+	 * 
+	 */
+	public BankDetails createBank(BankDetails bank) throws eVillageException {
+		return dao.createBank(bank);
+	}
 }
