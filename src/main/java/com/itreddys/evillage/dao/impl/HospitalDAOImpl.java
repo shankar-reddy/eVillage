@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itreddys.evillage.bean.HospitalDetails;
@@ -27,8 +26,7 @@ import com.mongodb.DBObject;
  */
 @Service
 public class HospitalDAOImpl implements HospitalDAO {
-	@Autowired
-	DBConnectionFactory dbConnection;
+	DBConnectionFactory dbConnection = new DBConnectionFactory();
 	DB db;
 	private static final Logger logger_c = Logger
 			.getLogger(AccountDAOImpl.class);
